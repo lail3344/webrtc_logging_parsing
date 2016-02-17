@@ -1,0 +1,46 @@
+#How to run chrome in docker test environment#
+
+
+luq@luq-ultrabook:~/Dev2/docker-selenium$ docker run -d -p 4444:4444 -p 5901:5900 selenium/standalone-chrome-debug:local
+
+luq@luq-ultrabook:~/Dev2/docker-selenium$ docker ps
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+6291d3cc6ce6 selenium/standalone-chrome-debug:local "/opt/bin/entry_point" 19 minutes ago Up 19 minutes 0.0.0.0:4444->4444/tcp, 0.0.0.0:5901->5900/tcp pensive_pare
+
+luq@luq-ultrabook:~/Dev2/docker-selenium$ docker port 6291d3cc6ce6 5900
+0.0.0.0:5901
+
+Then, we can using vncviewer to control our ubuntu15.03with chrome 48 installed
+luq@luq-ultrabook:~/Dev2/docker-selenium$ vncviewer 127.0.0.1:5901
+
+Note, password is secret.
+
+
+
+Join conferrence from Chrome in docker to host MCU
+In Host
+    //copy test audio file to container
+       docker cp audio_long16.wav 4ee943813c1c:/
+    //join conference in host chrom
+    https://10.188.15.215:3004/
+
+In container
+    //start chrome with
+    root@4ee943813c1c:/#google-chrome --user-data-dir=/home/seluser/ --use-fake-device-for-media-stream --use-file-for-fake-audio-capture=/audio_long16.wav
+
+   // access https://10.188.15.215:3004 in chrome
+
+After two participants all joined conferrence, we can hear the audio_long16.wav from host PC
+
+
+Or, start docker's chrome from Host,
+docker exec 5755086af01b google-chrome --allow-running-insecure-content --user-data-dir=/home/seluser/ --use-fake-device-for-media-stream --use-file-for-fake-audio-capture=/audio_long16.wav https://10.188.15.215:3004
+
+run 15 seconds
+docker exec [container id] timeout 15 google-chrome --allow-running-insecure-content --user-data-dir=/home/seluser/ --use-fake-device-for-media-stream --use-file-for-fake-audio-capture=/audio_long16.wav https://10.188.15.215:3004
+
+
+in order to copy a file from a container to the host, you can use the command
+docker cp <containerId>:/file/path/within/container /host/path/target
+docker cp foo.txt mycontainer:/foo.txt
+docker cp mycontainer:/foo.txt foo.txt
