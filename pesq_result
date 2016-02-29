@@ -1,0 +1,32 @@
+Running with our peer server
+./run_pesq test_rec_peer_normal.wav
+P.862 Prediction (Raw MOS, MOS-LQO):  = 3.583 3.666
+
+
+./run_pesq test_rec_peer_5_pl.wav
+P.862 Prediction (Raw MOS, MOS-LQO):  = 3.108 2.983
+
+
+./run_pesq test_rec_peer_10_pl.wav
+P.862 Prediction (Raw MOS, MOS-LQO):  = 2.983 2.797
+
+./run_pesq test_rec_peer_15_pl.wav
+P.862 Prediction (Raw MOS, MOS-LQO):  = 2.957 2.759
+
+----------------------------------------------------
+
+----------------------------------------------------
+Running with our MCU
+./run_pesq test_normal_rec.wav
+P.862 Prediction (Raw MOS, MOS-LQO):  = 3.404	3.419
+
+
+./run_pesq test_pl_5_rec.wav
+
+P.862 Prediction (Raw MOS, MOS-LQO):  = 3.084	2.947
+
+./run_pesq test_pl_10_rec.wav
+P.862 Prediction (Raw MOS, MOS-LQO):  = 2.999	2.821
+
+./run_pesq test_pl_15_rec.wav
+P.862 Prediction (Raw MOS, MOS-LQO):  = 2.880	2.64eeee6

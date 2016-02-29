@@ -1,0 +1,16 @@
+#docker run -d -p 4445:4445 -p 5902:5900 selenium/standalone-chrome-debug:latest
+3c136f6cc5248f350ea3b3293cb4c85c59bcb26fcae45203c913e70cc8a5a967
+luq@luq-5960:~/Dev2$ docker ps
+CONTAINER ID        IMAGE                                     COMMAND                  CREATED             STATUS              PORTS                                                      NAMES
+3c136f6cc524        selenium/standalone-chrome-debug:latest   "/opt/bin/entry_point"   9 seconds ago       Up 7 seconds        4444/tcp, 0.0.0.0:4445->4445/tcp, 0.0.0.0:5902->5900/tcp   condescending_davinci
+2e5ff0914318        selenium/standalone-chrome-debug:latest   "/opt/bin/entry_point"   15 minutes ago      Up 15 minutes       0.0.0.0:4444->4444/tcp, 0.0.0.0:5901->5900/tcp             mad_borg
+
+
+#docker port 3c136f6cc524 5900
+
+#vncviewer 127.0.0.1:5902
+
+
+#docker exec 2e5ff0914318 timeout 15 google-chrome --allow-running-insecure-content --user-data-dir=/home/seluser/ --use-fake-device-for-media-stream --use-file-for-fake-audio-capture=/audio_long16.wav https://10.239.10.4:3004
+
+

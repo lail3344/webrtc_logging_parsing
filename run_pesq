@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./pesq +16000 test_ref.wav $1

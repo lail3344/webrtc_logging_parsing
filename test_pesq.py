@@ -91,6 +91,7 @@ def RunPESQ(audio_file_ref, audio_file_test, sample_rate=16000):
   # P.862 Prediction (Raw MOS, MOS-LQO):  = 4.180    4.319
   result = re.search('Prediction.*= (\d{1}\.\d{3})\t(\d{1}\.\d{3})',
                      output)
+  logging.debug(output)
   if not result or len(result.groups()) != 2:
     return None
     
@@ -148,4 +149,6 @@ def ForceMicrophoneVolumeTo100Percent():
     logging.error('Error forcing mic volume to 100%%: %s\n%s', output, error)
 
 if __name__ == "__main__":
-    RunPESQ("human-voice-linux.wav", "human-voice-linux.wav");
+#    RemoveSilence(sys.argv[1], "ref.wav")
+#    RemoveSilence(sys.argv[2], "rec.wav")
+    RunPESQ("ref.wav", "rec.wav")
