@@ -1,0 +1,35 @@
+7 participants
+   1 local host chrome
+   6 docker chrome (one of them play audio with speech, others play silent audio file)
+
+luq@luq-5960:~/Dev2/audio_webrtc_parser/webrtc_logging_parsing$ ./pesq +16000 audio_long16_base_sound.wav output_record.wav 
+Perceptual Evaluation of Speech Quality (PESQ)
+
+Reading reference file audio_long16_base_sound.wav...done.
+Reading degraded file output_record.wav...done.
+ Level normalization...
+ IRS filtering...
+ Variable delay compensation...
+ Acoustic model processing...
+
+P.862 Prediction (Raw MOS, MOS-LQO):  = 3.383	3.389
+
+-------------------------------------------------------------------
+
+2 participants
+   1 local host chrome
+   1 docker chrome (play audio with speech)
+
+
+luq@luq-5960:~/Dev2/audio_webrtc_parser/webrtc_logging_parsing$ ./pesq +16000 audio_long16_base_sound.wav output_record_2_participants.wav 
+
+Reading reference file audio_long16_base_sound.wav...done.
+Reading degraded file output_record_2_participants.wav...done.
+ Level normalization...
+ IRS filtering...
+ Variable delay compensation...
+ Acoustic model processing...
+
+P.862 Prediction (Raw MOS, MOS-LQO):  = 3.364 3.362
+    luq@luq-5960:~/Dev2/audio_webrtc_parser/webrtc_logging_parsing$ ./pesq +16000 audio_long16_base_sound.wav output_record_2_participants.wav 
+
