@@ -11,6 +11,10 @@ import numpy as np
 import logging
 import json
 
+import os
+
+from os.path import basename
+
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import matplotlib.path as path
@@ -672,7 +676,7 @@ def genLevelOne2Sub3Key(dataJson):
 
     return levelOne2Sub3KeyList;
 
-def drawPlot(data, xlabel, ylabel):
+def drawPlot(data, xlabel, ylabel, path):
     index = []
     value = []
 
@@ -703,10 +707,10 @@ def drawPlot(data, xlabel, ylabel):
     
     #plt.show()
     plt.figure()
-    fig.savefig('./generation_img/' + ylabel+'.png', bbox_inches='tight')
+    fig.savefig('./' + path + '/' + ylabel+'.png', bbox_inches='tight')
     return 0
 
-def parsingWebrtcInternalsDump(dataJson):
+def parsingWebrtcInternalsDump(dataJson, path):
     for i, iValue in enumerate(dataJson[levelOneKey[1]]):
         for j, jValue in enumerate(dataJson[levelOneKey[1]][iValue]['stats']):
             for key in levelOne2Sub3KeyList:
@@ -716,7 +720,7 @@ def parsingWebrtcInternalsDump(dataJson):
                         if (kValue == 'values'):
                             value = dataJson[levelOneKey[1]][iValue]['stats'][jValue][kValue]
                             #pp.pprint(value)
-                            drawPlot(value, 'samples', iValue + ": " + jValue)
+                            drawPlot(value, 'samples', iValue + ": " + jValue, path)
 
     '''
     re4Key = re.compile(levelOne2Sub3KeyTemplate[10])
@@ -754,11 +758,27 @@ if __name__ == "__main__":
     logger.setLevel(logging.DEBUG)
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
     #queue = Queue()
-    
-    levelOne2Sub3KeyList = []
-    
-    with open(sys.argv[1]) as data_file:
-        data = json.load(data_file)
 
-    genLevelOne2Sub3Key(data)
-    parsingWebrtcInternalsDump(data)
+
+    rootdir = sys.argv[1]
+
+    for subdir, dirs, files in os.walk(rootdir):
+        for file in files:
+            levelOne2Sub3KeyList = []
+            dump_path = os.path.join(subdir, file)
+            create_path = rootdir + "/" + os.path.splitext(file)[0]
+            if os.path.exists(create_path):
+                pass
+            else:
+                os.mkdir(create_path, 0755)
+            print(dump_path)
+            with open(dump_path) as data_file:
+                data =  json.load(data_file)
+                genLevelOne2Sub3Key(data)
+                parsingWebrtcInternalsDump(data, create_path)
+
+#    with open(sys.argv[1]) as data_file:
+#        data = json.load(data_file)
+
+#    genLevelOne2Sub3Key(data)
+#    parsingWebrtcInternalsDump(data, path)
