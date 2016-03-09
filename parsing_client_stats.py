@@ -17,6 +17,9 @@ import matplotlib.path as path
 import matplotlib.animation as animation
 import pprint as pp
 from pygments import highlight, lexers, formatters
+from multiprocessing import Process, Queue
+from multiprocessing import Process, Queue
+import re
 
 
 '''
@@ -611,12 +614,70 @@ levelOne2Sub3Key = ["Conn-audio-1-0-bytesReceived",
                     # also have some ssrc_xxxxxxxxx_recv-xxxxx for video metrics
                     ]
                     
+levelOne2Sub3KeyTemplate = ['Conn-audio-\d-0-bytesReceived', 
+                    'Conn-audio-\d-0-bitsReceivedPerSecond', 
+                    'Conn-audio-\d-0-bytesSent', 
+                    'Conn-audio-1-0-bitsSentPerSecond', 
+                    'Conn-audio-1-0-packetsSent', 
+                    'Conn-audio-1-0-packetsSentPerSecond',
+#                    "Conn-audio-1-0-googLocalAddress", 
+#                    "Conn-audio-1-0-googRemoteAddress", 
+                    'Conn-audio-\d-0-googRtt',
+                    'Conn-audio-\d-0-packetsDiscardedOnSend', 
+                    'ssrc_\d+_recv-audioOutputLevel',  # 10
+                    'ssrc_\d+_recv-bytesReceived', 
+                    'ssrc_\d+_recv-bitsReceivedPerSecond',
+                    'ssrc_\d+_recv-packetsLost',       # 13
+                    'ssrc_\d+_recv-packetsReceived', 
+                    'ssrc_\d+_recv-packetsReceivedPerSecond', 
+#                    "ssrc_3901145078_recv-ssrc", 
+                    'ssrc_\d+_recv-googAccelerateRate', 
+                    'ssrc_\d+_recv-googCaptureStartNtpTimeMs',
+                    # use it as clue to mapping ssrc to audio|video stream, it's value = VP8 | opus
+#                    "ssrc_3901145078_recv-googCodecName", 
+                    'ssrc_\d+_recv-googCurrentDelayMs', 
+                    'ssrc_\d+_recv-googDecodingCNG',
+                    'ssrc_\d+_recv-googDecodingCTN', 
+                    'ssrc_\d+_recv-googDecodingCTSG', 
+                    'ssrc_\d+_recv-googDecodingNormal',
+                    'ssrc_\d+_recv-googDecodingPLC', 
+                    'ssrc_\d+_recv-googDecodingPLCCNG', 
+                    'ssrc_\d+_recv-googExpandRate',
+                    'ssrc_\d+_recv-googJitterBufferMs', 
+                    'ssrc_\d+_recv-googJitterReceived', 
+                    'ssrc_\d+_recv-googPreemptiveExpandRate',
+                    'ssrc_\d+_recv-googPreferredJitterBufferMs', 
+                    'ssrc_\d+_recv-googSecondaryDecodedRate', 
+                    'ssrc_\d+_recv-googSpeechExpandRate',
+                    # also have some ssrc_xxxxxxxxx_recv-xxxxx for video metrics, TBD
+                    ]
+
+def genLevelOne2Sub3Key(dataJson):
+
+    for i, iValue in enumerate(dataJson[levelOneKey[1]]):
+        for j, jValue in enumerate(dataJson[levelOneKey[1]][iValue]['stats']):
+            for template in levelOne2Sub3KeyTemplate:
+                re4Key = re.compile(template)
+                if (re4Key.search(jValue) != None):
+                    #pp.pprint(jValue)
+                    levelOne2Sub3KeyList.append(jValue)
+
+
+    #pp.pprint(levelOne2Sub3KeyList)
+
+    #re4Key = re.compile(levelOne2Sub3KeyTemplate[10])
+    #for value in levelOne2Sub3KeyList:
+    #    if (re4Key.search(value) != None):
+    #        pp.pprint(value)
+
+    return levelOne2Sub3KeyList;
+
 def drawPlot(data, xlabel, ylabel):
     index = []
     value = []
-    
-    draw_data = data.split(',')  
-    
+
+    draw_data = data.split(',')
+
     for i, item in enumerate(draw_data):
         if (i == 0):
             #pp.pprint(item)
@@ -640,14 +701,37 @@ def drawPlot(data, xlabel, ylabel):
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     
-    plt.show()
+    #plt.show()
+    plt.figure()
+    fig.savefig('./generation_img/' + ylabel+'.png', bbox_inches='tight')
     return 0
 
 def parsingWebrtcInternalsDump(dataJson):
-    
-    for i, item in enumerate(levelOne2Sub3Key):
-        item = dataJson[levelOneKey[1]]['7976-14']['stats'][levelOne2Sub3Key[i]]['values']  
-        drawPlot(item, 'samples', levelOne2Sub3Key[i])   
+    for i, iValue in enumerate(dataJson[levelOneKey[1]]):
+        for j, jValue in enumerate(dataJson[levelOneKey[1]][iValue]['stats']):
+            for key in levelOne2Sub3KeyList:
+                if (key == jValue):
+                    pp.pprint(iValue + " : " + jValue)
+                    for k, kValue in enumerate(dataJson[levelOneKey[1]][iValue]['stats'][jValue]):
+                        if (kValue == 'values'):
+                            value = dataJson[levelOneKey[1]][iValue]['stats'][jValue][kValue]
+                            #pp.pprint(value)
+                            drawPlot(value, 'samples', iValue + ": " + jValue)
+
+    '''
+    re4Key = re.compile(levelOne2Sub3KeyTemplate[10])
+    for value in levelOne2Sub3KeyList:
+        if (re4Key.search(value) != None):
+            pp.pprint(value)
+
+    for i, item in enumerate(dataJson[levelOneKey[1]]):
+        for j, value in enumerate(dataJson[levelOneKey[1]][item]):
+            item = dataJson[levelOneKey[1]][i]['stats'][levelOne2Sub3Key[j]]['values']  
+            drawPlot(item, 'samples', levelOne2Sub3Key[j])
+            #p = Process(target=drawPlot, args=(item, 'samples', levelOne2Sub3Key[i]))
+            #p.start()
+            #p.join() # this blocks until the process terminates  
+    '''
     '''    
     values = dataJson[levelOneKey[1]]['7976-14']['stats'][levelOne2Sub3Key[0]]['values']   
     
@@ -664,26 +748,17 @@ def parsingWebrtcInternalsDump(dataJson):
 
     return 0
     
-'''    
-    fig, ax = plt.subplots()
-    ax.plot_date(index, value, '-')
-    ax.autoscale_view()
-    ax.grid(True)
-    fig.autofmt_xdate()
-    
-    plt.show()
-'''    
-    
-
 
 if __name__ == "__main__":
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
+    #queue = Queue()
+    
+    levelOne2Sub3KeyList = []
     
     with open(sys.argv[1]) as data_file:
         data = json.load(data_file)
 
-#    formatted_json = json.dumps(data)
-    
+    genLevelOne2Sub3Key(data)
     parsingWebrtcInternalsDump(data)
