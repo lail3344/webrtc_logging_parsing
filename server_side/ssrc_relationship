@@ -1,32 +1,32 @@
 10.239.158.34
 Peer 1
-  ssrc_2672171814_recv (audio)
+  ssrc_2807171120_recv (audio)
 
-  ssrc_1524453062_recv (video)
+  ssrc_3637741736_recv (video)
 
 Peer 2
   ssrc_44444_recv (audio)
   
-  ssrc_3619446435_send (audio)
+  ssrc_2933423332_send (audio)
 
   ssrc_55543_recv (video)
 
-  ssrc_647055048_send (video)
+  ssrc_226163241_send (video)
 
 
 10.239.10.20
 
 Peer 1
-  ssrc_2051266473_recv (audio)
+  ssrc_2609315043_recv (audio)
 
-  ssrc_1524453062_recv (video)
+  ssrc_3637741736_recv (video)
 
 
 Peer 2
   ssrc_44444_recv (audio)
 
-  ssrc_192371737_send (audio)
+  ssrc_469578406_send (audio)
 
   ssrc_55543_recv      (video)
 
-  ssrc_2759905577_send (video)
+  ssrc_3534122403_send (video)
