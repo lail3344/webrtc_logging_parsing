@@ -1,32 +1,61 @@
 10.239.158.34
 Peer 1
-  ssrc_2807171120_recv (audio)
+  ssrc_2731052179_recv (audio)
 
-  ssrc_3637741736_recv (video)
+  ssrc_3792466950_recv (video)
 
 Peer 2
   ssrc_44444_recv (audio)
   
-  ssrc_2933423332_send (audio)
+  ssrc_1515394994_send (audio)
 
   ssrc_55543_recv (video)
 
-  ssrc_226163241_send (video)
+  ssrc_3949450344_send (video)
 
 
 10.239.10.20
 
 Peer 1
-  ssrc_2609315043_recv (audio)
+  ssrc_292002592_recv (audio)
 
-  ssrc_3637741736_recv (video)
+  ssrc_3792466950_recv (video)
 
 
 Peer 2
   ssrc_44444_recv (audio)
 
-  ssrc_469578406_send (audio)
+  ssrc_4273015555_send (audio)
 
   ssrc_55543_recv      (video)
 
-  ssrc_3534122403_send (video)
+  ssrc_602815266_send (video)
+
+
+
+----------------------------------------------------------------
+[DEBUG] 2016-03-11 11:37:58,647 mcu.StatsUtilization StatsUtilization::onTimeout - receiving voiceChannels.size=2
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=1(ssrc=2731052179), bitsReceivedPerSecond=1108415, packetsLost=0, packetsReceivedPerSecond=0
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=1(ssrc=2731052179), playout_buffer_delay_ms=170, jitter_buffer_delay_ms=0, CurrentDelayMs=170
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=1(ssrc=2731052179), audioOutputLevel=431
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=1(remotessrc=1515394994), audioInputLevel=0
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=1(ssrc=2731052179), googJitterBufferMs=160, googPreferredJitterBufferMs=140, gooExpandRate=0.000000, googSpeechExpandRate=0.000000, googSecondaryDecodedRate=0.000000, googAccelerateRate=0.000000, googPreemptiveExpandRate=0.000000
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=1(ssrc=2731052179), googDecodingCTSG=0, googDecodingCTN=21900, googDecodingNormal=21898, googDecodingPLC=2, googDecodingCNG=0, googDecodingPLCCNG=0
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=1(ssrc=2731052179), googCaptureStartNtpTimeMs=3666656058887
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=0(ssrc=292002592), bitsReceivedPerSecond=1167937, packetsLost=0, packetsReceivedPerSecond=0
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=0(ssrc=292002592), playout_buffer_delay_ms=162, jitter_buffer_delay_ms=0, CurrentDelayMs=162
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=0(ssrc=292002592), audioOutputLevel=21
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=0(remotessrc=4273015555), audioInputLevel=0
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=0(ssrc=292002592), googJitterBufferMs=152, googPreferredJitterBufferMs=140, gooExpandRate=0.000000, googSpeechExpandRate=0.000000, googSecondaryDecodedRate=0.000000, googAccelerateRate=0.000000, googPreemptiveExpandRate=0.000000
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=0(ssrc=292002592), googDecodingCTSG=0, googDecodingCTN=23492, googDecodingNormal=23491, googDecodingPLC=1, googDecodingCNG=0, googDecodingPLCCNG=0
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=0(ssrc=292002592), googCaptureStartNtpTimeMs=3666656042873
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - receiving voiceOutputChannels.size=2
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=0(ssrcOutput=4273015555), bitsSentPerSecond=1908462, packetsSentPerSecond=11899, googRtt=2
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=0(ssrcOutput=4273015555), block.source_SSRC=292002592
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=0(ssrcOutput=4273015555), audioInputLevel=0
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=0(remotessrc=292002592), audioOutputLevel=21
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=1(ssrcOutput=1515394994), bitsSentPerSecond=1895042, packetsSentPerSecond=10954, googRtt=1
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=1(ssrcOutput=1515394994), block.source_SSRC=2731052179
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=1(ssrcOutput=1515394994), audioInputLevel=0
+[DEBUG] 2016-03-11 11:37:58,648 mcu.StatsUtilization StatsUtilization::onTimeout - Voice Channel id=1(remotessrc=2731052179), audioOutputLevel=431
+
